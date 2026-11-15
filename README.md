@@ -34,9 +34,9 @@ irm https://raw.githubusercontent.com/TysonChernen/study-videos-kit/main/setup.p
 
 **With Brightspace:** on Mac, add `-s -- --brightspace https://learn.myschool.edu` after `bash`. On Windows, start the line with `$env:BRIGHTSPACE_URL="https://learn.myschool.edu";`. Use the address you see when you're logged in.
 
-**Or let your AI do it.** Paste this into Claude Code, the Code tab in Claude Desktop, or Codex in ChatGPT desktop:
+**Or paste a prompt.** This works in apps that can run commands: Claude Code, the **Code** tab in Claude desktop, or **Codex** in ChatGPT desktop. Regular chat can't run commands, so use the terminal line above there.
 
-> Install the study videos kit by running its setup from https://github.com/TysonChernen/study-videos-kit (setup.sh on Mac/Linux, setup.ps1 on Windows). My school's Brightspace is `<address>` (skip this if your school doesn't use Brightspace).
+> Set up the study videos kit from https://github.com/TysonChernen/study-videos-kit. On Mac or Linux run `curl -fsSL https://raw.githubusercontent.com/TysonChernen/study-videos-kit/main/setup.sh | bash`. On Windows run `irm https://raw.githubusercontent.com/TysonChernen/study-videos-kit/main/setup.ps1 | iex` in PowerShell. My school's Brightspace is `<address>`, so add `--brightspace <address>` (skip this if my school doesn't use Brightspace). Then tell me to quit and reopen the app.
 
 Then **quit and reopen your AI app**.
 

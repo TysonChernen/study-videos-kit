@@ -4,6 +4,12 @@ About 3 minutes. **You don't need to install anything first.** The setup gets ev
 
 You need ChatGPT desktop or Claude desktop installed and signed in.
 
+## Easiest: paste a prompt
+
+This works if you use Claude Code, the **Code** tab in Claude desktop, or **Codex** in ChatGPT desktop. Regular chat can't run commands, so use the Mac or Windows steps below instead. Paste this, fill in your school's address or delete that sentence, and the AI does the rest:
+
+> Set up the study videos kit from https://github.com/TysonChernen/study-videos-kit. On Mac or Linux run `curl -fsSL https://raw.githubusercontent.com/TysonChernen/study-videos-kit/main/setup.sh | bash`. On Windows run `irm https://raw.githubusercontent.com/TysonChernen/study-videos-kit/main/setup.ps1 | iex` in PowerShell. My school's Brightspace is `<address>`, so add `--brightspace <address>` (skip this if my school doesn't use Brightspace). Then tell me to quit and reopen the app.
+
 ## Mac
 
 1. Open **Terminal**: press `Cmd + Space`, type `Terminal`, press Enter.
