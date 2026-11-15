@@ -1,0 +1,10 @@
+{
+  "name": "youtube-study-mcp",
+  "version": "1.0.0",
+  "description": "MCP server: search YouTube, read transcripts, and build a local page that plays only the useful minutes of several videos back to back. No API key.",
+  "type": "module",
+  "main": "server.mjs",
+  "bin": { "youtube-study-mcp": "./server.mjs" },
+  "dependencies": { "@modelcontextprotocol/sdk": "^1.30.0" },
+  "license": "MIT"
+}
