@@ -1,6 +1,6 @@
 # Study Videos Kit
 
-Turn "I have a test next week" into one page that plays only the useful minutes of several YouTube videos, back to back, with practice questions between topics.
+Turn "I have a test next week" into one page that plays only the useful minutes of several YouTube videos, back to back. Ask for practice questions and it pauses between topics to quiz you.
 
 Your AI app reads what's on the test (from Brightspace or your slides), searches YouTube, reads each video's transcript to find the exact minutes that cover your material, and builds the page. Every timestamp comes from a transcript, never a guess.
 
@@ -58,7 +58,7 @@ You get a page that:
 
 - plays each chosen segment and moves on to the next,
 - shows a note under each video (for example "your prof uses a different sign convention"),
-- pauses at the end of each topic for practice questions,
+- pauses between topics for practice questions, if you ask for them,
 - saves your progress and playback speed.
 
 Pages are saved in `~/StudyVideos`. To open one later, ask your AI to "open my chem-midterm2 video run", or run:

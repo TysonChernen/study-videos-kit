@@ -1,11 +1,11 @@
 ---
 name: study-videos
-description: Build a continuous YouTube "video run" for studying a course topic. Works out what will be tested (from Brightspace, uploaded slides, a syllabus or the user's topic list), finds YouTube videos, checks their transcripts to pick only the relevant minutes, and builds a local page that plays the chosen segments back to back with notes and practice questions. Use when the user asks for videos, a video playlist, a watch list, or "the parts of the video I should watch" for a course, test, quiz or topic.
+description: Build a continuous YouTube "video run" for studying a course topic. Works out what will be tested (from Brightspace, uploaded slides, a syllabus or the user's topic list), finds YouTube videos, checks their transcripts to pick only the relevant minutes, and builds a local page that plays the chosen segments back to back with a note under each (and practice questions between topics, if the user asks). Use when the user asks for videos, a video playlist, a watch list, or "the parts of the video I should watch" for a course, test, quiz or topic.
 ---
 
 # Study videos
 
-Produces one page per study goal: the chosen minutes of several YouTube videos playing back to back, a note under each saying how it relates to the course, and a short exercise when each topic ends.
+Produces one page per study goal: the chosen minutes of several YouTube videos playing back to back, and a note under each saying how it relates to the course. Practice questions between topics are optional: add them only if the user asks.
 
 Tools come from the `youtube-study` MCP server: `search_videos`, `get_video_info`, `get_transcript`, `build_video_page`, `open_video_page`. Course material comes from any course MCP server the user has connected (the kit's `brightspace` server or their own), or from files they share.
 
@@ -44,11 +44,11 @@ Call `build_video_page` with a `title`, a short `name`, and `segments` in study 
 {"topic": "Double hashing", "video": "Dzm9c1P0_Nw", "start": "2:16", "end": "5:21",
  "title": "Two hash functions",
  "note": "How this differs from the course, in one or two sentences.",
- "check": "On the LAST segment of a topic: an exercise or 2-3 quiz questions from the course material. No answers."}
+ "check": "Only if the user asked for practice questions, on the LAST segment of a topic: an exercise or 2-3 quiz questions from the course material. No answers."}
 ```
 
 - Times are `m:ss`, `h:mm:ss` or seconds.
-- The page pauses at each `check`, so that is where practice questions go.
+- `check` is optional. Leave it out unless the user asks for practice questions; the run then plays straight through. When it is set, the page pauses there.
 - Reusing a `name` replaces that run. The spec is saved next to the page as JSON.
 
 ## 5. Report
