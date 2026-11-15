@@ -2,3 +2,4 @@ node_modules/
 brightspace-mcp/dist/
 .DS_Store
 *.log
+.runtime/

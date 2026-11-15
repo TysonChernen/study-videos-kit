@@ -30,6 +30,7 @@ const GUIDE_FILE = path.join(HERE, "..", "skills", "study-videos", "SKILL.md");
 function findYtDlp() {
   const candidates = [
     process.env.YTDLP_PATH,
+    path.join(HERE, "..", ".runtime", "bin", process.platform === "win32" ? "yt-dlp.exe" : "yt-dlp"),
     "/opt/homebrew/bin/yt-dlp",
     "/usr/local/bin/yt-dlp",
     "/usr/bin/yt-dlp",

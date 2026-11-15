@@ -7,7 +7,7 @@ description: Build a continuous YouTube "video run" for studying a course topic.
 
 Produces one page per study goal: the chosen minutes of several YouTube videos playing back to back, a note under each saying how it relates to the course, and a short exercise when each topic ends.
 
-Tools come from the `youtube-study` MCP server: `search_videos`, `get_video_info`, `get_transcript`, `build_video_page`, `open_video_page`. Course tools (optional) come from the `brightspace` MCP server.
+Tools come from the `youtube-study` MCP server: `search_videos`, `get_video_info`, `get_transcript`, `build_video_page`, `open_video_page`. Course material comes from any course MCP server the user has connected (the kit's `brightspace` server or their own), or from files they share.
 
 Videos teach mechanics. The course's own notation, worked examples and proofs come from its slides, so always say which parts no video covers.
 
@@ -15,7 +15,7 @@ Videos teach mechanics. The course's own notation, worked examples and proofs co
 
 Use whatever the user has, in this order:
 
-1. **Brightspace MCP, if connected:** `list_courses`, then `get_course_content` for the module and file list, `get_topic_content` to read slides (it saves PDFs locally), and `list_announcements` for the test date and scope. Look for a practice test or review sheet.
+1. **A course MCP server, if one is connected.** Use whichever school or LMS server the user already has (their own Brightspace or onQ server, Canvas, Moodle, Blackboard and so on), with its own tool names. The kit's `brightspace` server is only one option. With it: `list_courses`, then `get_course_content` for the module and file list, `get_topic_content` to read slides (it saves PDFs locally), and `list_announcements` for the test date and scope. Look for a practice test or review sheet.
 2. **Files the user gives you:** slides, a syllabus, a review sheet, a practice test.
 3. **Nothing else:** ask the user for the topic list, or what the test covers.
 

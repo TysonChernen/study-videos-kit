@@ -11,35 +11,40 @@ Works with **Claude Desktop**, **Claude Code** and **ChatGPT desktop** (through 
 | Part | What it does |
 | --- | --- |
 | `youtube-study-mcp/` | MCP server: `search_videos`, `get_video_info`, `get_transcript`, `build_video_page`, `open_video_page`, `study_videos_guide`. Uses [yt-dlp](https://github.com/yt-dlp/yt-dlp), so no YouTube API key. |
-| `brightspace-mcp/` | Optional MCP server for any school on D2L Brightspace (Queen's onQ, Western OWL, UVic and so on): courses, content and slides, announcements, assignments, due dates, grades. |
+| `brightspace-mcp/` | Optional. Skip it if you already have a school MCP. An MCP server for any school on D2L Brightspace (Queen's onQ, Western OWL, UVic and so on): courses, content and slides, announcements, assignments, due dates, grades. |
 | `skills/study-videos/` | The workflow: find what's tested, search, check transcripts, build. Claude Code and Codex load it as a skill. Every other app gets it from the `study_videos_guide` tool. |
-| `install.mjs` | One installer for Mac, Windows and Linux. Finds your AI apps and registers the servers with each one. |
+| `setup.sh`, `setup.ps1` | One-paste setup for Mac/Linux and Windows. They fetch the kit and Node if needed, then run `install.mjs`. |
+| `install.mjs` | Finds your AI apps and registers the servers with each one. |
 
 ## Install
 
-You need [Node.js 18+](https://nodejs.org). The installer adds yt-dlp if it's missing.
+**Nothing to install first.** Setup downloads a private copy of Node.js and yt-dlp if you don't have them. It needs no admin password and works without git or a GitHub account. **New to the terminal? Follow [SETUP.md](SETUP.md).**
 
-**Option A: let your AI do it.** Paste this into Claude Code, the Code tab in Claude Desktop, or Codex in ChatGPT desktop:
-
-> Install https://github.com/TysonChernen/study-videos-kit: clone it to ~/study-videos-kit and run `node install.mjs` from that folder. My school's Brightspace is `<the address you see when you log in>` (skip this part if your school doesn't use Brightspace).
-
-**Option B: one terminal command.**
+**Mac / Linux**, in Terminal:
 
 ```bash
-git clone https://github.com/TysonChernen/study-videos-kit ~/study-videos-kit && node ~/study-videos-kit/install.mjs
+curl -fsSL https://raw.githubusercontent.com/TysonChernen/study-videos-kit/main/setup.sh | bash
 ```
 
-To include Brightspace, add `--brightspace` with your school's address:
+**Windows**, in PowerShell:
 
-```bash
-node ~/study-videos-kit/install.mjs --brightspace https://learn.myschool.edu
+```powershell
+irm https://raw.githubusercontent.com/TysonChernen/study-videos-kit/main/setup.ps1 | iex
 ```
 
-No git? [Download the zip](https://github.com/TysonChernen/study-videos-kit/archive/refs/heads/main.zip), unzip it, and run `node install.mjs` inside the folder.
+**With Brightspace:** on Mac, add `-s -- --brightspace https://learn.myschool.edu` after `bash`. On Windows, start the line with `$env:BRIGHTSPACE_URL="https://learn.myschool.edu";`. Use the address you see when you're logged in.
+
+**Or let your AI do it.** Paste this into Claude Code, the Code tab in Claude Desktop, or Codex in ChatGPT desktop:
+
+> Install the study videos kit by running its setup from https://github.com/TysonChernen/study-videos-kit (setup.sh on Mac/Linux, setup.ps1 on Windows). My school's Brightspace is `<address>` (skip this if your school doesn't use Brightspace).
 
 Then **quit and reopen your AI app**.
 
-> **ChatGPT desktop:** local MCP servers load through Codex, which keeps its settings in `~/.codex/config.toml`. If you've never opened Codex, run the installer with `--codex` to create that file. Regular ChatGPT chat on the web can't run local servers.
+> **Already have a school MCP?** If an MCP server for your school is already connected (Brightspace, onQ, Canvas, Moodle or another), leave out `--brightspace`. The AI uses whichever course server you have.
+
+> **ChatGPT desktop:** local MCP servers load through Codex, which keeps its settings in `~/.codex/config.toml`. If you've never opened Codex, add `--codex` to the setup to create that file. Regular ChatGPT chat on the web can't run local servers.
+
+Already have Node 18+? `git clone https://github.com/TysonChernen/study-videos-kit ~/study-videos-kit && node ~/study-videos-kit/install.mjs` does the same thing.
 
 ## Use it
 

@@ -27,11 +27,20 @@ const warn = (m) => console.log(`  ! ${m}`);
 const step = (m) => console.log(`\n${m}`);
 
 function has(cmd) {
-  const r = spawnSync(isWin ? "where" : "which", [cmd], { stdio: "ignore" });
+  const r = spawnSync(isWin ? "where" : "which", [cmd], { stdio: "ignore", env: ENV });
   return r.status === 0;
 }
+// Run npm/npx from the same Node that runs this script, so a private Node copy
+// (downloaded by setup.sh / setup.ps1) works without being on the PATH.
+const NODE_DIR = path.dirname(NODE);
+const ENV = { ...process.env, PATH: NODE_DIR + path.delimiter + (process.env.PATH || "") };
+function tool(name) {
+  const local = path.join(NODE_DIR, isWin ? `${name}.cmd` : name);
+  return fs.existsSync(local) ? local : name;
+}
 function run(cmd, cmdArgs, cwd) {
-  const r = spawnSync(cmd, cmdArgs, { cwd, stdio: "inherit", shell: isWin });
+  if (cmd === "npm" || cmd === "npx") cmd = tool(cmd);
+  const r = spawnSync(cmd, cmdArgs, { cwd, stdio: "inherit", shell: isWin, env: ENV });
   if (r.status !== 0) throw new Error(`${cmd} ${cmdArgs.join(" ")} failed`);
 }
 
@@ -154,17 +163,22 @@ if (!uninstall) {
   if (major < 18) { console.error(`  Node ${process.versions.node} is too old. Install Node 18 or newer from https://nodejs.org`); process.exit(1); }
   ok(`Node ${process.versions.node}`);
 
-  const ytdlpKnown = ["/opt/homebrew/bin/yt-dlp", "/usr/local/bin/yt-dlp", "/usr/bin/yt-dlp", path.join(HOME, ".local/bin/yt-dlp")];
+  const privateYtdlp = path.join(KIT, ".runtime", "bin", isWin ? "yt-dlp.exe" : "yt-dlp");
+  const ytdlpKnown = [privateYtdlp, "/opt/homebrew/bin/yt-dlp", "/usr/local/bin/yt-dlp", "/usr/bin/yt-dlp", path.join(HOME, ".local/bin/yt-dlp")];
   if (has("yt-dlp") || ytdlpKnown.some((p) => fs.existsSync(p))) ok("yt-dlp");
   else {
+    // The official standalone build: one file, no Python needed.
+    const asset = process.platform === "darwin" ? "yt-dlp_macos"
+      : isWin ? "yt-dlp.exe"
+      : process.arch === "arm64" ? "yt-dlp_linux_aarch64" : "yt-dlp_linux";
     try {
-      if (process.platform === "darwin" && has("brew")) run("brew", ["install", "yt-dlp"]);
-      else if (isWin && has("winget")) run("winget", ["install", "--id", "yt-dlp.yt-dlp", "-e", "--accept-source-agreements", "--accept-package-agreements"]);
-      else if (has("pip3")) run("pip3", ["install", "--user", "yt-dlp"]);
-      else throw new Error("no installer");
-      ok("yt-dlp installed");
-    } catch {
-      warn("Install yt-dlp yourself (https://github.com/yt-dlp/yt-dlp#installation), then re-run this.");
+      const res = await fetch(`https://github.com/yt-dlp/yt-dlp/releases/latest/download/${asset}`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      fs.mkdirSync(path.dirname(privateYtdlp), { recursive: true });
+      fs.writeFileSync(privateYtdlp, Buffer.from(await res.arrayBuffer()), { mode: 0o755 });
+      ok("yt-dlp downloaded into the kit folder");
+    } catch (e) {
+      warn(`Could not download yt-dlp (${e.message}). Install it yourself: https://github.com/yt-dlp/yt-dlp#installation`);
     }
   }
 
