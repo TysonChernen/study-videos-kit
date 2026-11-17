@@ -27,6 +27,7 @@ List the topics with the instructor's specifics for each: formulas and notation,
 
 - `search_videos` for each topic. Prefer short worked-example videos (5 to 20 minutes) in clear English. One channel's series for a group of sub-topics keeps notation consistent.
 - `get_video_info` gives length, chapters and caption availability without the transcript.
+- **Avoid AI-narrated channels.** They are common in history and humanities searches and sound synthetic. Signs: a faceless channel with no presenter or named author; a burst of uploads, often in the last year; very long single videos (40+ min) with no chapters or one "Intro" chapter; auto-captions only; and a script full of AI tells ("Sit with that for a second", "Now put that beside...", "here is the one thing that unlocks all of it", "which is a more interesting story than the one it replaced"). Read the first two minutes of transcript before using any unfamiliar channel. Example to avoid: *Mythology Illuminated*. Prefer channels with a named human presenter or institution: universities, TED-Ed, Crash Course, toldinstone, latintutorial.
 
 ## 3. Verify with transcripts, then pick segments
 
